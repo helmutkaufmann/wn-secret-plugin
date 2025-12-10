@@ -16,27 +16,10 @@ This plugin provides a Twig filter and function `secret` that creates signed, ex
 
 ## 1\. Installation
 
-### 1.1. From GitHub
-
-From the root of your WinterCMS project:
+### 1.1. Co,poser
 
 ```bash
-cd plugins
-mkdir -p mercator
-cd mercator
-git clone https://github.com/helmutkaufmann/wn-secret-plugin.git secret
-```
-
-The final path must be:
-
-```text
-plugins/mercator/secret/
-  Plugin.php
-  routes.php
-  config/config.php
-  http/controllers/SignedFileController.php
-  README.md
-  LICENSE
+composer require mercator/wn-secret-plugin
 ```
 
 ### 1.2. Clear caches
