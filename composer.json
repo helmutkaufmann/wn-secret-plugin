@@ -1,0 +1,39 @@
+{
+  "name": "mercator/wn-secret-plugin",
+  "description": "WinterCMS plugin providing temporary signed links for internal files and URLs (Twig filter/function `secret`).",
+  "type": "winter-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Helmut Kaufmann",
+       "email": "helmut@mercator.li",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "wintercms/winter": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mercator\\Secret\\": ""
+    }
+  },
+  "extra": {
+    "winter": {
+      "plugin": "Mercator.Secret"
+    }
+  },
+  "keywords": [
+    "wintercms",
+    "winter",
+    "plugin",
+    "secret",
+    "signed",
+    "urls",
+    "files",
+    "downloads"
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
