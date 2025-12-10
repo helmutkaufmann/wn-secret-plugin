@@ -157,7 +157,7 @@ Use this when you have a path relative to a storage disk, e.g., values coming fr
 **Example:**
 
 ```twig
-{# file.path = "media/Quartierszeitung/2014/OZ_Nr104_2014.pdf" #}
+{# file.path = "media/QZ/2014/OZ_Nr104_2014.pdf" #}
 
 {# Default settings from config (disk, expiry, delete flag) #}
 <a href="{{ file.path | secret }}">
