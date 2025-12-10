@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'expiry' => (int) env('SECRET_DEFAULT_EXPIRY', 60),
+    'expiry' => (int) env('SECRET_DEFAULT_EXPIRY', 15),
 
     /*
     |--------------------------------------------------------------------------
