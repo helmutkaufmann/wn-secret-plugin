@@ -104,7 +104,7 @@ SECRET_DELETE_AFTER_DOWNLOAD=false # true = delete after download by default
 The plugin registers a single front-end route in `plugins/mercator/secret/routes.php`:
 
 ```php
-Route::get('secret-download', [SignedFileController::class, 'download'])
+Route::get('mercator-secret-download', [SignedFileController::class, 'download'])
     ->name('mercator.secret.download');
 ```
 
@@ -223,7 +223,7 @@ Assume your qresize plugin returns a URL like `/queuedresize/<hash>`:
 
 1.  `qresize` → returns `/queuedresize/<hash>`.
 2.  `secret(15)` sees a URL (starts with `/`) → **URL mode**.
-3.  A signed link is generated pointing to `/secret-download?...`.
+3.  A signed link is generated pointing to `/mercator-secret-download?...`.
 4.  The controller:
       * Validates the signature/expiry.
       * Decrypts the internal URL from the payload.
@@ -239,7 +239,7 @@ Assume your qresize plugin returns a URL like `/queuedresize/<hash>`:
 ### 7.1. Payload
 
 The link looks like:
-`/secret-download?t=ENCRYPTED_PAYLOAD&expires=...&signature=...`
+`/mercator-secret-download?t=ENCRYPTED_PAYLOAD&expires=...&signature=...`
 
 The encrypted payload includes:
 
