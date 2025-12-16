@@ -16,7 +16,7 @@ This plugin provides a Twig filter and function `secret` that creates signed, ex
 
 ## 1. Installation
 
-### 1.1. Co,poser
+### 1.1. Composer
 
 ```bash
 composer require mercator/wn-secret-plugin
