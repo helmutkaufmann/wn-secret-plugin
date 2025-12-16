@@ -5,6 +5,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SignedFileController extends Controller
@@ -56,16 +57,47 @@ class SignedFileController extends Controller
             if (!$host || !hash_equals($host, $reqHost)) {
                 abort(403);
             }
-
-            return redirect()->to($url);
+        } else {
+            // Relative path -> make absolute for fetching
+            // e.g. "/queuedresize/abc" -> "http://mysite.com/queuedresize/abc"
+            if (!str_starts_with($url, '/')) {
+                $url = '/' . ltrim($url, '/');
+            }
+            $url = $request->schemeAndHttpHost() . $url;
         }
 
-        // Relative path (e.g. "/queuedresize/abc123" or "queuedresize/abc123")
-        if (!str_starts_with($url, '/')) {
-            $url = '/' . ltrim($url, '/');
-        }
+        // Stream (proxy) the content instead of redirecting.
+        // This hides the true location/URL from the browser.
+        try {
+            $response = Http::withOptions([
+                'stream' => true,
+                'verify' => false, // allow self-signed certs internally
+                'timeout' => 30,
+            ])->get($url);
 
-        return redirect()->to($url);
+            if ($response->failed()) {
+                abort($response->status());
+            }
+
+            $contentType = $response->header('Content-Type') ?: 'application/octet-stream';
+
+            // Get the underlying PHP stream resource
+            $body = $response->toPsrResponse()->getBody();
+            $stream = $body->detach();
+
+            return new StreamedResponse(function () use ($stream) {
+                if ($stream && is_resource($stream)) {
+                    fpassthru($stream);
+                    fclose($stream);
+                }
+            }, 200, [
+                'Content-Type' => $contentType,
+                'Content-Disposition' => 'inline',
+            ]);
+
+        } catch (\Throwable $e) {
+            abort(404);
+        }
     }
 
     protected function handleStorageMode(array $payload)

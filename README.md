@@ -14,7 +14,7 @@ This plugin provides a Twig filter and function `secret` that creates signed, ex
 
 -----
 
-## 1\. Installation
+## 1. Installation
 
 ### 1.1. Co,poser
 
@@ -35,7 +35,7 @@ Then log in to the backend and ensure **Mercator.Secret** is enabled (if you are
 
 -----
 
-## 2\. Configuration
+## 2. Configuration
 
 The plugin’s config file is located at `plugins/mercator/secret/config/config.php`.
 
@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'expiry' => (int) env('SECRET_DEFAULT_EXPIRY', 15),
+    'expiry' => (int) env('SECRET_DEFAULT_EXPIRY', 30),
 
     /*
     |--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ The controller (`SignedFileController`) validates the signed URL using `URL::has
 
 -----
 
-## 4\. Twig API
+## 4. Twig API
 
 The plugin registers both a filter and a function named `secret`.
 
@@ -150,7 +150,7 @@ If `target`:
 
 -----
 
-## 5\. Storage mode (files on disks)
+## 5. Storage mode (files on disks)
 
 Use this when you have a path relative to a storage disk, e.g., values coming from the media library or file uploads.
 
@@ -204,7 +204,7 @@ The real storage path is never exposed in clear text in the URL.
 
 -----
 
-## 6\. URL mode (internal URLs only)
+## 6. URL mode (internal URLs only)
 
 Use this when you already have an internal URL/path and you just want an expiring signed wrapper. This is useful together with dynamic image endpoints (e.g., `qresize`).
 
@@ -234,7 +234,7 @@ Assume your qresize plugin returns a URL like `/queuedresize/<hash>`:
 
 -----
 
-## 7\. Implementation notes
+## 7. Implementation notes
 
 ### 7.1. Payload
 
@@ -265,7 +265,7 @@ Everything is encrypted via Laravel’s `Crypt` using your `APP_KEY`.
 
 -----
 
-## 8\. License
+## 8. License
 
 This plugin is released under the MIT License.
 
